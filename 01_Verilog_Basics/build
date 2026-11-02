@@ -1,0 +1,3 @@
+xvlog rtl/exercises/ex05.v tb/tb_Mini_ALU.v
+xelab tb_Mini_ALU -s mini_alu_sim2 -debug typical
+xsim mini_alu_sim2 -gui
