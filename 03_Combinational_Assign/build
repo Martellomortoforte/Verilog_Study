@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -e
+
+# 1. Vivado 2022.2 환경 설정
+source "$HOME/Xilinx/Vivado/2022.2/settings64.sh"
+
+# 2. Vivado 라이브러리 경로 설정
+export LD_LIBRARY_PATH="$HOME/Xilinx/Vivado/2022.2/lib/lnx64.o/SuSE${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+# 3. build 파일이 위치한 디렉터리로 이동
+cd "$(dirname "$0")"
+
+# 4. Verilog 컴파일
+xvlog rtl/booth_encoder.v tb/tb_booth_encoder.v
+
+# 5. 시뮬레이션 실행 모델 생성
+xelab tb_booth_encoder -s booth_test -debug typical
+
+# 6. 파형 설정용 Tcl 파일 생성
+cat > wave.tcl <<'EOF'
+log_wave -r /
+add_wave /tb_booth_encoder/*
+run all
+EOF
+
+# 7. XSim GUI 실행
+xsim booth_test -gui -tclbatch wave.tcl

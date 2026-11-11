@@ -15,3 +15,20 @@
 # Other temporary files
 *.swp
 *~
+
+# Vivado / XSim generated files
+.Xil/
+xsim.dir/
+*.jou
+*.log
+*.pb
+*.wdb
+*.wcfg
+*.xdbg
+*.sdb
+*.rlx
+
+# Python temporary files
+__pycache__/
+*.pyc
+vivado_pid*.str
